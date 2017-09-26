@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import list from './list';
+import sally from './sally';
 
-export default combineReducers({ list });
+export default combineReducers({ sally });
