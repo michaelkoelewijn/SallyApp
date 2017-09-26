@@ -1,0 +1,45 @@
+:root {
+    --primary-color: #222;
+}
+
+body {
+    font-family: 'Encode Sans Condensed', sans-serif;
+    padding: 5vh 0;
+    background-color: #FFF;
+    color: var(--primary-color);
+}
+
+.logo { text-align: center; }
+.logo span { display: block; }
+.logo__title { font-size: 3em; }
+.logo__slogan { font-size: 1.5em; }
+
+
+.container {
+    max-width: 32em;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.timer {
+    margin: 10vh 0;
+    text-align: center;
+    font-size: 4em;
+}
+
+.timer span + span:before {
+    content: ':';
+    display: inline-block;
+    margin: 0 0.15em;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 1em;
+    border: 0;
+    text-transform: uppercase;
+    font-size: 2em;
+    color: #FFF;
+}
