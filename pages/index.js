@@ -3,32 +3,30 @@ import { bindActionCreators } from 'redux'
 import initStore from '../store'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head';
-import { initTimer } from '../actions/sally'
+import { initTimer, clearTimer } from '../actions/sally'
+
+
+import Router from 'next/router'
 
 import Timer from '../components/Timer'
+import Statistics from '../components/Statistics'
  
 class Index extends React.Component {
 
-	static getInitialProps({ isServer }) {
-		return { isServer }
-	} 
-
 	componentDidMount() {
-		const { isServer, dispatch, timer } = this.props
-		if(isServer) {
-			initTimer(dispatch)
-		}
+		clearTimer(this.props.dispatch)
 	}
 
+	startSally() {
+		Router.push({
+			pathname: '/progress'
+		})
+	}
 
-	render () {
+	render() {
 		return (
 			<div className="container">
-				
-				<Timer />
-
-				<button className="button">Stop, i'm weak</button>
-
+				<button className="button" onClick={this.startSally.bind(this)}>Start SallyApp</button>
 			</div>
 		)
 	}

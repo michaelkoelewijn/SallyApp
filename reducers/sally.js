@@ -9,6 +9,13 @@ export default function(state = initialState, action) {
 				...state,
 				timer: ++state.timer
 			}
+
+		case 'CLEAR_TIMER':
+			return {
+				...state,
+				timer: 0
+			}
+
 		default:
 			return state
 	}

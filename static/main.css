@@ -9,10 +9,10 @@ body {
     color: var(--primary-color);
 }
 
-.logo { text-align: center; }
+.logo { text-align: center; margin-bottom: 5vh; }
 .logo span { display: block; }
-.logo__title { font-size: 3em; }
-.logo__slogan { font-size: 1.5em; }
+.logo__title { font-size: 4em; margin: 0 0 0.075em; }
+.logo__slogan { font-size: 0.95em; text-transform: uppercase; opacity: 0.4; }
 
 
 .container {
@@ -22,7 +22,7 @@ body {
 }
 
 .timer {
-    margin: 10vh 0;
+    margin: 0 0 5vh 0;
     text-align: center;
     font-size: 4em;
 }
@@ -42,4 +42,22 @@ body {
     text-transform: uppercase;
     font-size: 2em;
     color: #FFF;
+}
+
+.statistics { text-align: center; margin: 0 0 1vh; }
+
+.statistics img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2em 0 0;
+}
+
+.statistics span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.statistics span + span:before {
+    content: '/';
+    margin: 0 1em;
 }

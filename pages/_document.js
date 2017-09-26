@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
 
                     <div className="logo">
                         <span className="logo__title">SallyApp</span>
-                        <span className="logo__slogan">f*ck yeah!</span>
+                        <span className="logo__slogan">Just an activity</span>
                     </div>
 
 					<Main />

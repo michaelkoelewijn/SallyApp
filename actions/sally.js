@@ -1,5 +1,7 @@
 export function initTimer(dispatch) {
-    setInterval(() => {
-        dispatch({'type': 'INIT_TIMER'})
-    }, 1000)
+    dispatch({'type': 'INIT_TIMER'})
+}
+
+export function clearTimer(dispatch) {
+    dispatch({'type': 'CLEAR_TIMER'})
 }
