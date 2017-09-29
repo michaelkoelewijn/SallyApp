@@ -10,6 +10,7 @@ import Router from 'next/router'
 
 import Timer from '../components/Timer'
 import Statistics from '../components/Statistics'
+import ConnectedPeople from '../components/ConnectedPeople'
  
 class Index extends React.Component {
 
@@ -26,6 +27,7 @@ class Index extends React.Component {
 	render() {
 		return (
 			<div className="container">
+				<ConnectedPeople />
 				<button className="button" onClick={this.startSally.bind(this)}>Start SallyApp</button>
 			</div>
 		)

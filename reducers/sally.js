@@ -1,5 +1,6 @@
 const initialState = {
-    timer: 0
+	timer: 0,
+	people: 0
 }
 
 export default function(state = initialState, action) {
