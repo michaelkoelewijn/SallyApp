@@ -5,3 +5,7 @@ export function initTimer(dispatch) {
 export function clearTimer(dispatch) {
     dispatch({'type': 'CLEAR_TIMER'})
 }
+
+export function addPlayer(dispatch, name = '') {
+    dispatch({'type': 'ADD_PLAYER', 'payload': name})
+}

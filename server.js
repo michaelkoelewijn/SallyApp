@@ -2,27 +2,39 @@ const express = require('express')
 const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const main = next({ dev })
+const handle = main.getRequestHandler()
 
-app.prepare()
+const port = process.env.PORT || 3000
+
+main.prepare()
 .then(() => {
-  const server = express()
-
-  server.get('*', (req, res) => {
+  const app = express()
+  app.get('*', (req, res) => {
     return handle(req, res)
   })
 
-//   server.get('/workout/:id', (req, res) => {
-//     const actualPage = '/workout'
-//     const queryParams = { id: req.params.id } 
-//     app.render(req, res, actualPage, queryParams)
-//   })
-
-  server.listen(process.env.PORT || 3000, (err) => {
+  const server = app.listen(port, (err) => {
     if (err) throw err
     console.log('> Ready on http://localhost:3000')
   })
+
+  const io = require('socket.io')(server);  
+
+  io.on('connection', (socket) => {  
+    console.log('a user connected');
+  
+    socket.on('CLIENT:ADD_PLAYER', (data) => {
+      //ADD TO LIST AND SEND TO ALL CONNECTED SOCKETS
+    })
+
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  })
+  
+
+  
 })
 .catch((ex) => {
   console.error(ex.stack)

@@ -1,6 +1,6 @@
 const initialState = {
 	timer: 0,
-	people: 0
+	people: []
 }
 
 export default function(state = initialState, action) {
@@ -16,6 +16,12 @@ export default function(state = initialState, action) {
 				...state,
 				timer: 0
 			}
+
+		case 'ADD_PLAYER':
+			return {
+				...state,
+				people: [...state.people,action.payload]
+			}	
 
 		default:
 			return state
