@@ -20,12 +20,8 @@ class ConnectedPeople extends React.Component {
         })
 
         this.socket.on('SERVER:START_TIMER_FOR_EVERYONE', (data) => {
-            initTimer(this.props.dispatch, data)
-            setTimeout(()=> {
-                Router.push({
-                    pathname: '/progress'
-                })
-            }, 5000)
+            //Server side tijd genereren
+            console.log(data)
         })
 
         
