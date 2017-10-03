@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
 import Router from 'next/router'
-import { setPlayers, setGameMaster, initTimer } from '../actions/sally'
+import { setPlayers, setGameMaster } from '../actions/sally'
 
 
 class ConnectedPeople extends React.Component {
