@@ -21,31 +21,13 @@ class Progress extends React.Component {
 		return { isServer }
 	} 
 
-	componentDidMount() {
-		const { isServer, dispatch, timer } = this.props
-		this.interval = setInterval(() => {
-			initTimer(dispatch)
-		}, 1000)
+	stopTimer() {
+		clearInterval(window._timer)
 	}
 
-	stopTimer(e) {
-		e.preventDefault()
-		clearTimeout(this.interval)
-		this.setState({ hasTappedOut: true })
-	}
-
-	sendToAPI(e) {
-		e.preventDefault()
-		alert('Thank you sensei')
-	}
-
-	render () {
-		let button = null;
-		if(this.state.hasTappedOut) {
-			button = <button onClick={this.sendToAPI.bind(this)} className="button">Send to API</button>
-		}else{
-			button = <button onClick={this.stopTimer.bind(this)} className="button">Stop, i'm weak</button>
-		}
+	render () {		
+		let button = <button onClick={this.stopTimer.bind(this)}  className="button">Stop, i'm weak</button>
+		
 
 		return (
 			<div className="container">

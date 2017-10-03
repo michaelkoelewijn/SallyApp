@@ -36,6 +36,12 @@ export default function(state = initialState, action) {
 				isGameMaster: action.payload
 			}	
 
+		case 'SET_TIMER':
+			return {
+				...state,
+				timer: action.payload
+			}
+
 		default:
 			return state
 	}

@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setPlayers, setGameMaster } from '../actions/sally'
+import Router from 'next/router'
+import { setPlayers, setGameMaster, initTimer } from '../actions/sally'
 
 
 class ConnectedPeople extends React.Component {
@@ -18,6 +19,13 @@ class ConnectedPeople extends React.Component {
             setGameMaster(this.props.dispatch)
         })
 
+        this.socket.on('SERVER:START_TIMER_FOR_EVERYONE', (data) => {
+            initTimer(this.props.dispatch, data)
+            Router.push({
+                pathname: '/progress'
+            })
+        })
+
         
     }
 
@@ -32,12 +40,16 @@ class ConnectedPeople extends React.Component {
         }
     }
 
+    emitTimerStart() {
+        this.socket.emit('CLIENT:START_TIMER')
+    }
+
     render() {
         const { people, isGameMaster } = this.props
 
         let startButton = ''
         if(isGameMaster) {
-            startButton = <button className="button">Start SallyApp</button>
+            startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Start SallyApp</button>
         }
 
         return (
@@ -60,7 +72,7 @@ class ConnectedPeople extends React.Component {
                     }
                 </ul>
 
-                { isGameMaster }
+                { startButton }
 
             </div>
         )

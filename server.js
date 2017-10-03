@@ -22,30 +22,32 @@ main.prepare()
   const io = require('socket.io')(server);  
   var connectedUsers = {};
   io.on('connection', (client) => { 
-    console.log('a user connected');
+    
+    //ADDS PLAYER TO LIST
     client.on('CLIENT:ADD_PLAYER', (data) => {
-      //ADD TO LIST AND SEND TO ALL CONNECTED SOCKETS
       let numberOfConnectedSockets = parseInt(Object.keys(connectedUsers).length);
       let playerData = {
         name: data.name
       }
-
       if(numberOfConnectedSockets === 0) {
         playerData.gameMaster = true
         io.to(client.id).emit('SERVER:SET_GAMEMASTER', true)
       }
-
       connectedUsers[client.id] = playerData
     })
 
     //Send updated list of connected players once every x seconds
     var updateInterval = setInterval(() => {
-      console.log('PLAYERLIST EMITTED')
       io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
     }, 3000)
 
+    //SEND SIGNAL FOR SYNCED TIMERS
+    client.on('CLIENT:START_TIMER', (data) => {
+      io.emit('SERVER:START_TIMER_FOR_EVERYONE', Date.now())
+    })
+
+    //REMOVE PLAYER FROM SOCKET AND CLEAR ALL DATA
     client.on('disconnect', () => {
-      console.log('user disconnected')
       clearInterval(updateInterval)
       delete connectedUsers[client.id]
     });
