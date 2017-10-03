@@ -23,6 +23,13 @@ export default function(state = initialState, action) {
 				people: [...state.people,action.payload]
 			}	
 
+		case 'SET_PLAYERS': 
+			
+			return {
+				...state,
+				people: action.payload
+			}	
+
 		default:
 			return state
 	}

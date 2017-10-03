@@ -1,24 +1,24 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { addPlayer } from '../actions/sally'
-
-
-
+import { setPlayers } from '../actions/sally'
 
 
 class ConnectedPeople extends React.Component {
 
     componentDidMount() {
-        // const socket = io('http://localhost:3000');
         const io = require('socket.io-client')  
-        this.socket = io()  
+        const HOST = ''
+        let connectedPlayers = []
+        this.socket = io(HOST)  
+        this.socket.on('SERVER:EMIT_PLAYERS', (data) => {
+            setPlayers(this.props.dispatch, data)
+        });
     }
 
     addPlayer(e) {
         e.preventDefault()
         let playerName = this.nameInput.value;
         if(playerName !== '') {
-            addPlayer(this.props.dispatch, playerName)
             document.getElementById('join-session-form').style.display = 'none'   
             this.socket.emit('CLIENT:ADD_PLAYER', {
                 'name': playerName
@@ -27,8 +27,11 @@ class ConnectedPeople extends React.Component {
     }
 
     render() {
-
         const { people } = this.props;
+
+        
+
+
         return (
             <div className="connected-people">
 

@@ -20,16 +20,24 @@ main.prepare()
   })
 
   const io = require('socket.io')(server);  
-
-  io.on('connection', (socket) => {  
+  var connectedUsers = {};
+  io.on('connection', (client) => { 
     console.log('a user connected');
-  
-    socket.on('CLIENT:ADD_PLAYER', (data) => {
+    client.on('CLIENT:ADD_PLAYER', (data) => {
       //ADD TO LIST AND SEND TO ALL CONNECTED SOCKETS
+      connectedUsers[client.id] = data.name
     })
 
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
+    //Send updated list of connected players once every x seconds
+    var updateInterval = setInterval(() => {
+      console.log('PLAYERLIST UPDATED', connectedUsers)
+      io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
+    }, 3000)
+
+    client.on('disconnect', () => {
+      console.log('user disconnected')
+      clearInterval(updateInterval)
+      delete connectedUsers[client.id]
     });
   })
   
