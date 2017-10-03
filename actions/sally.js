@@ -17,3 +17,7 @@ export function setPlayers(dispatch, players) {
     })
     dispatch({'type': 'SET_PLAYERS', 'payload': connectedPlayers})
 }
+
+export function setGameMaster(dispatch) {
+    dispatch({'type': 'SET_GAMEMASTER', 'payload': true})
+}

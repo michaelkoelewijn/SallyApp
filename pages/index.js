@@ -28,7 +28,6 @@ class Index extends React.Component {
 		return (
 			<div className="container">
 				<ConnectedPeople />
-				<button className="button" onClick={this.startSally.bind(this)}>Start SallyApp</button>
 			</div>
 		)
 	}

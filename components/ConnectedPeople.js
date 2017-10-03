@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setPlayers } from '../actions/sally'
+import { setPlayers, setGameMaster } from '../actions/sally'
 
 
 class ConnectedPeople extends React.Component {
@@ -13,6 +13,12 @@ class ConnectedPeople extends React.Component {
         this.socket.on('SERVER:EMIT_PLAYERS', (data) => {
             setPlayers(this.props.dispatch, data)
         });
+
+        this.socket.on('SERVER:SET_GAMEMASTER', (data) => {
+            setGameMaster(this.props.dispatch)
+        })
+
+        
     }
 
     addPlayer(e) {
@@ -27,10 +33,12 @@ class ConnectedPeople extends React.Component {
     }
 
     render() {
-        const { people } = this.props;
+        const { people, isGameMaster } = this.props
 
-        
-
+        let startButton = ''
+        if(isGameMaster) {
+            startButton = <button className="button">Start SallyApp</button>
+        }
 
         return (
             <div className="connected-people">
@@ -45,16 +53,21 @@ class ConnectedPeople extends React.Component {
                 </h2>
                 <ul >
                     {
-                        people.map((name, key) => {
-                            return <li key={key}>{name}</li>
+                        people.map((player, key) => {
+                            let gameMaster = player.gameMaster ? <i>( Room master )</i> : ''
+                            return <li key={key}>{player.name} { gameMaster }</li>
                         })
                     }
                 </ul>
+
+                { isGameMaster }
+
             </div>
         )
     }
 }
 
 export default connect(state => ({
-    people: state.sally.people
+    people: state.sally.people,
+    isGameMaster: state.sally.isGameMaster
 }))(ConnectedPeople)
