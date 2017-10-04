@@ -11,6 +11,8 @@ class Timer extends React.Component {
         let musicPlayer = document.getElementById('music-player')
         let metronomePlayer = document.getElementById('metronome-player')
         metronomePlayer.play()
+        metronomePlayer.pause()
+        metronomePlayer.play()
         setTimeout(() => {
             musicPlayer.play()
             initTimer(this.props.dispatch)
