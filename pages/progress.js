@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import initStore from '../store'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head';
-import { initTimer } from '../actions/sally'
+
 
 
 import Timer from '../components/Timer'
@@ -22,20 +22,13 @@ class Progress extends React.Component {
 		return { isServer }
 	} 
 
-	componentDidMount() {
-		initTimer(this.props.dispatch)
-	}
 	
 	render () {		
 		return (
 			<div className="container">
-				
 				<Timer />
-
 				<Stop />
-
 				<Scoreboard />
-
 			</div>
 		)
 	}

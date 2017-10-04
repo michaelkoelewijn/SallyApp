@@ -15,11 +15,13 @@ class Stop extends React.Component {
             'time': timer
         })
 
+        this.button.style.display = "none"
+
 	}
 
     render() {
         return (
-            <button onClick={this.stopTimer.bind(this)}  className="button">Stop, i'm weak</button>
+            <button onClick={this.stopTimer.bind(this)} ref={(button) =>  {this.button = button }} className="button">Stop, i'm weak</button>
         )
     }
 }
