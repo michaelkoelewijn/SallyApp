@@ -21,13 +21,16 @@ class Progress extends React.Component {
 		return { isServer }
 	} 
 
+	componentDidMount() {
+		initTimer(this.props.dispatch)
+	}
+	
 	stopTimer() {
 		clearInterval(window._timer)
 	}
 
 	render () {		
 		let button = <button onClick={this.stopTimer.bind(this)}  className="button">Stop, i'm weak</button>
-		
 
 		return (
 			<div className="container">

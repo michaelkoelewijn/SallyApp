@@ -20,8 +20,9 @@ class ConnectedPeople extends React.Component {
         })
 
         this.socket.on('SERVER:START_TIMER_FOR_EVERYONE', (data) => {
-            //Server side tijd genereren
-            console.log(data)
+            Router.push({
+                pathname: '/progress'
+            })
         })
 
         

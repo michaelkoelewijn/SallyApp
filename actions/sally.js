@@ -16,10 +16,9 @@ export function setGameMaster(dispatch) {
 }
 
 export function initTimer(dispatch, startTime) {
-    let currDateTime, timeInSeconds
+    let timer = 0
     window._timer = setInterval(() => {
-        currDateTime = new Date()
-        timeInSeconds = parseInt((currDateTime - startTime) / 1000)
-        dispatch({'type': 'SET_TIMER', 'payload': timeInSeconds})
+        ++timer
+        dispatch({'type': 'SET_TIMER', 'payload': timer})
     }, 1000)
 }

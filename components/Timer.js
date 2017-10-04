@@ -1,7 +1,11 @@
 import React from "react"
 import { connect } from 'react-redux'
 
+
 class Timer extends React.Component {
+
+
+    
 
     getFormatted() {
         const {timer} = this.props
