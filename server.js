@@ -55,6 +55,10 @@ main.prepare()
       allScores[client.id] = { 'name': data.name, 'time': data.time }
     })
 
+    client.on('CLIENT:START_ALL_TIMERS', (data) => {
+      io.emit('SERVER:START_TIMERS')
+    })
+
     
 
     //REMOVE PLAYER FROM SOCKET AND CLEAR ALL DATA

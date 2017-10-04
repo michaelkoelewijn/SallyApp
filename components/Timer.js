@@ -8,12 +8,22 @@ class Timer extends React.Component {
 
     componentDidMount() {
         const START_DELAY = 5000; //X seconds
-        let musicPlayer = document.getElementById('music-player')
-        
-        musicPlayer.onplaying = () => {
-            initTimer(this.props.dispatch)
+
+        const io = require('socket.io-client')
+        const HOST = ''
+        this.socket = io(HOST)  
+
+        if(this.props.isGameMaster) {
+            let musicPlayer = document.getElementById('music-player')
+            musicPlayer.onplaying = () => {
+                this.socket.emit('CLIENT:START_ALL_TIMERS', true)
+            }
         }
-        
+
+        this.socket.on('SERVER:START_TIMERS', (data) => {
+            initTimer(this.props.dispatch)
+        })
+
 
     }
 
@@ -45,5 +55,6 @@ class Timer extends React.Component {
 }
 
 export default connect(state => ({
-    timer: state.sally.timer
+    timer: state.sally.timer,
+    isGameMaster: state.sally.isGameMaster
 }))(Timer)
