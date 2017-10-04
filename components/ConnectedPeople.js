@@ -49,7 +49,7 @@ class ConnectedPeople extends React.Component {
 
         let startButton = ''
         if(isGameMaster) {
-            startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Start SallyApp</button>
+            startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Everyone is ready. Let's go!</button>
         }
 
         return (

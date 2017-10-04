@@ -20,7 +20,7 @@ export function setGameMaster(dispatch) {
 }
 
 export function initTimer(dispatch, startTime) {
-    let timer = 0
+    let timer = -4
     window._timer = setInterval(() => {
         ++timer
         dispatch({'type': 'SET_TIMER', 'payload': timer})

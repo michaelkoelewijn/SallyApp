@@ -11,7 +11,7 @@ body {
     color: var(--primary-color);
 }
 
-audio {  }
+audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
 
 .logo { text-align: center; margin-bottom: 5vh; }
 .logo span { display: block; }
@@ -47,6 +47,8 @@ audio {  }
     font-size: 1.5em;
     color: #FFF;
 }
+
+.button--start-audio { margin-bottom: 10px; }
 
 .statistics { text-align: center; margin: 0 0 1vh; }
 

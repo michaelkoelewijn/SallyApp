@@ -5,17 +5,19 @@ import { initTimer } from '../actions/sally'
 
 class Timer extends React.Component {
 
+    constructor() {
+        super()
+        this.musicPlayer = ''
+    }
 
     componentDidMount() {
-        const START_DELAY = 5000; //X seconds
-
         const io = require('socket.io-client')
         const HOST = ''
         this.socket = io(HOST)  
 
         if(this.props.isGameMaster) {
-            let musicPlayer = document.getElementById('music-player')
-            musicPlayer.onplaying = () => {
+            this.musicPlayer = document.getElementById('music-player')
+            this.musicPlayer.onplaying = () => {
                 this.socket.emit('CLIENT:START_ALL_TIMERS', true)
             }
         }
@@ -30,13 +32,24 @@ class Timer extends React.Component {
     getFormatted() {
         const {timer} = this.props
         let date = new Date(null)
-        date.setSeconds(timer)
+        date.setSeconds(Math.abs(timer))
         return date.toISOString().substr(11,8).split(':');
+    }
+
+    startAudio() {
+        this.musicPlayer.play()
+        this.button.style.display = "none"
     }
 
 
     render() {
         let timerObj = this.getFormatted()
+
+        let button = ''
+        if(this.props.isGameMaster) {
+            button = <button ref={(button) => { this.button = button }} onClick={this.startAudio.bind(this)} className="button button--start-audio">Start audio</button>
+        }
+
         return (
             <div>
                 <div className="timer">
@@ -48,6 +61,8 @@ class Timer extends React.Component {
                     <source src="/static/sally.mp3" type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
+
+                { button }
                
             </div>
         )
