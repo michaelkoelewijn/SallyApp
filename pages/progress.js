@@ -8,6 +8,8 @@ import { initTimer } from '../actions/sally'
 
 import Timer from '../components/Timer'
 import Statistics from '../components/Statistics'
+import Stop from '../components/Stop'
+import Scoreboard from '../components/Scoreboard'
  
 class Progress extends React.Component {
 
@@ -25,13 +27,7 @@ class Progress extends React.Component {
 		initTimer(this.props.dispatch)
 	}
 	
-	stopTimer() {
-		clearInterval(window._timer)
-	}
-
 	render () {		
-		let button = <button onClick={this.stopTimer.bind(this)}  className="button">Stop, i'm weak</button>
-
 		return (
 			<div className="container">
 				
@@ -39,7 +35,9 @@ class Progress extends React.Component {
 
 				<Timer />
 
-				{button}
+				<Stop />
+
+				<Scoreboard />
 
 			</div>
 		)

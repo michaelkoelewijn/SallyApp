@@ -68,12 +68,14 @@ body {
     white-space: nowrap;
 }
 
-.join-session input {
+.join-session select {
     display: inline-block;
     width: calc(100% - 100px);
     border: 1px solid var(--primary-color);
     padding: 10px;
     border-right: 0;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 .join-session button {
@@ -122,3 +124,10 @@ body {
 .connected-people li + li {
     border-top: 1px solid #ddd;
 }
+
+.scoreboard {
+    width: 100%;
+    margin: 3em 0;
+}
+
+.scoreboard th { text-align: left; font-weight: bold; }

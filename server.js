@@ -7,6 +7,9 @@ const handle = main.getRequestHandler()
 
 const port = process.env.PORT || 3000
 
+
+
+
 main.prepare()
 .then(() => {
   const app = express()
@@ -21,6 +24,7 @@ main.prepare()
 
   const io = require('socket.io')(server);  
   var connectedUsers = {};
+  var allScores = {};
   io.on('connection', (client) => { 
     
     //ADDS PLAYER TO LIST
@@ -39,6 +43,7 @@ main.prepare()
     //Send updated list of connected players once every x seconds
     var updateInterval = setInterval(() => {
       io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
+      io.emit('SERVER:EMIT_ALL_SCORES', allScores)
     }, 3000)
 
     //SEND SIGNAL FOR SYNCED TIMERS
@@ -46,10 +51,17 @@ main.prepare()
       io.emit('SERVER:START_TIMER_FOR_EVERYONE', Date.now())
     })
 
+    client.on('CLIENT:SEND_SCORE_TO_SERVER', (data) => {
+      allScores[client.id] = { 'name': data.name, 'time': data.time }
+    })
+
+    
+
     //REMOVE PLAYER FROM SOCKET AND CLEAR ALL DATA
     client.on('disconnect', () => {
       clearInterval(updateInterval)
       delete connectedUsers[client.id]
+      delete allScores[client.id]
     });
   })
   

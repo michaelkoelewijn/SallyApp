@@ -2,12 +2,13 @@ import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
+
 	render() {
 		return (
 			<html>
                 <head>
                     <Head>
-                        <title>Todo App</title>
+                        <title>Sally App Sally Down</title>
                     </Head>
                     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
                     <meta name="theme-color" content="#673ab7" />
@@ -25,6 +26,7 @@ export default class MyDocument extends Document {
 
 					<Main />
 					<NextScript />
+
 				</body>
 			</html>
 		);

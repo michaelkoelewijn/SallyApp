@@ -1,6 +1,7 @@
 const initialState = {
 	timer: 0,
 	people: [],
+	player: '',
 	isGameMaster: false
 }
 
@@ -18,10 +19,10 @@ export default function(state = initialState, action) {
 				timer: 0
 			}
 
-		case 'ADD_PLAYER':
+		case 'SET_PLAYER':
 			return {
 				...state,
-				people: [...state.people,action.payload]
+				player: action.payload
 			}	
 
 		case 'SET_PLAYERS': 

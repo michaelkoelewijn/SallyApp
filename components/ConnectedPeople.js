@@ -1,15 +1,15 @@
 import React from "react"
 import { connect } from 'react-redux'
 import Router from 'next/router'
-import { setPlayers, setGameMaster } from '../actions/sally'
+import { setPlayer, setPlayers, setGameMaster } from '../actions/sally'
 
+import players from '../static/players'
 
 class ConnectedPeople extends React.Component {
 
     componentDidMount() {
         const io = require('socket.io-client')  
         const HOST = ''
-        let connectedPlayers = []
         this.socket = io(HOST)  
         this.socket.on('SERVER:EMIT_PLAYERS', (data) => {
             setPlayers(this.props.dispatch, data)
@@ -23,9 +23,7 @@ class ConnectedPeople extends React.Component {
             Router.push({
                 pathname: '/progress'
             })
-        })
-
-        
+        })        
     }
 
     addPlayer(e) {
@@ -36,6 +34,9 @@ class ConnectedPeople extends React.Component {
             this.socket.emit('CLIENT:ADD_PLAYER', {
                 'name': playerName
             })
+
+            setPlayer(this.props.dispatch, playerName)
+
         }
     }
 
@@ -55,7 +56,16 @@ class ConnectedPeople extends React.Component {
             <div className="connected-people">
 
                 <form onSubmit={ this.addPlayer.bind(this) } id="join-session-form" className="join-session">
-                    <input type="text" ref={(input) => { this.nameInput = input }} />
+
+                    <select ref={(input) => { this.nameInput = input }}>
+                        <option>-- Select your name --</option>
+                        { 
+                            players.map((player, index) => {
+                                return <option key={player.name} value={player.name}>{player.name}</option>
+                            }) 
+                        }
+                    </select>
+
                     <button type="button" type="submit">Join session</button>
                 </form>
 
