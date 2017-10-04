@@ -7,7 +7,6 @@ import { initTimer } from '../actions/sally'
 
 
 import Timer from '../components/Timer'
-import Statistics from '../components/Statistics'
 import Stop from '../components/Stop'
 import Scoreboard from '../components/Scoreboard'
  
@@ -31,8 +30,6 @@ class Progress extends React.Component {
 		return (
 			<div className="container">
 				
-				<Statistics />
-
 				<Timer />
 
 				<Stop />
