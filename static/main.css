@@ -11,7 +11,7 @@ body {
     color: var(--primary-color);
 }
 
-audio { position: absolute; opacity: 0; pointer-events: none; z-index: -1; }
+audio {  }
 
 .logo { text-align: center; margin-bottom: 5vh; }
 .logo span { display: block; }
