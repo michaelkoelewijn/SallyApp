@@ -7,11 +7,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch (action.type) {
-		case 'INIT_TIMER':
-            return {
-				...state,
-				timer: ++state.timer
-			}
 
 		case 'CLEAR_TIMER':
 			return {

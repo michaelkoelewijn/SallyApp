@@ -14,19 +14,16 @@ class Timer extends React.Component {
         const io = require('socket.io-client')
         const HOST = ''
         this.socket = io(HOST)  
-
         if(this.props.isGameMaster) {
             this.musicPlayer = document.getElementById('music-player')
             this.musicPlayer.onplaying = () => {
-                this.socket.emit('CLIENT:START_ALL_TIMERS', true)
+                this.socket.emit('CLIENT:SEND_START_SIGNAL', true)
             }
         }
 
-        this.socket.on('SERVER:START_TIMERS', (data) => {
+        this.socket.on('SERVER:SEND_START_SIGNAL', (data) => {
             initTimer(this.props.dispatch)
         })
-
-
     }
 
     getFormatted() {

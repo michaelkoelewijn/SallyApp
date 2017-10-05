@@ -19,11 +19,11 @@ class ConnectedPeople extends React.Component {
             setGameMaster(this.props.dispatch)
         })
 
-        this.socket.on('SERVER:START_TIMER_FOR_EVERYONE', (data) => {
+        this.socket.on('SERVER:EMIT_READY', (data) => {
             Router.push({
                 pathname: '/progress'
             })
-        })        
+        })
     }
 
     addPlayer(e) {
@@ -41,7 +41,7 @@ class ConnectedPeople extends React.Component {
     }
 
     emitTimerStart() {
-        this.socket.emit('CLIENT:START_TIMER')
+        this.socket.emit('CLIENT:EMIT_READY')
     }
 
     render() {
@@ -57,8 +57,8 @@ class ConnectedPeople extends React.Component {
 
                 <form onSubmit={ this.addPlayer.bind(this) } id="join-session-form" className="join-session">
 
-                    <select ref={(input) => { this.nameInput = input }}>
-                        <option>-- Select your name --</option>
+                    <select required ref={(input) => { this.nameInput = input }}>
+                        <option value="" selected="selected" disabled>-- Select your name --</option>
                         { 
                             players.map((player, index) => {
                                 return <option key={player.name} value={player.name}>{player.name}</option>

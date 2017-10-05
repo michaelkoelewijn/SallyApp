@@ -25,6 +25,8 @@ main.prepare()
   const io = require('socket.io')(server);  
   var connectedUsers = {};
   var allScores = {};
+  var serverTime = '';
+
   io.on('connection', (client) => { 
     
     //ADDS PLAYER TO LIST
@@ -46,28 +48,36 @@ main.prepare()
       io.emit('SERVER:EMIT_ALL_SCORES', allScores)
     }, 3000)
 
-    //SEND SIGNAL FOR SYNCED TIMERS
-    client.on('CLIENT:START_TIMER', (data) => {
-      io.emit('SERVER:START_TIMER_FOR_EVERYONE', Date.now())
+
+    client.on('CLIENT:EMIT_READY', () => {
+      io.emit('SERVER:EMIT_READY', true)
     })
 
-    client.on('CLIENT:SEND_SCORE_TO_SERVER', (data) => {
-      allScores[client.id] = { 'name': data.name, 'time': data.time }
+    client.on('CLIENT:SEND_START_SIGNAL', () => {
+      serverTime = new Date()
+      io.emit('SERVER:SEND_START_SIGNAL')
     })
 
-    client.on('CLIENT:START_ALL_TIMERS', (data) => {
-      io.emit('SERVER:START_TIMERS')
+    client.on('CLIENT:SEND_STOP_SIGNAL', (data) => {
+      let currTime = new Date()
+      let timeInSeconds = Math.ceil((currTime.getTime() - serverTime.getTime()) / 1000) - 5
+      let scoreData = { 'name': data.name, 'time': timeInSeconds }
+      allScores[client.id] = scoreData
+      
+      writeScoreToFile(scoreData)
     })
-
-    
 
     //REMOVE PLAYER FROM SOCKET AND CLEAR ALL DATA
     client.on('disconnect', () => {
-      clearInterval(updateInterval)
       delete connectedUsers[client.id]
       delete allScores[client.id]
     });
   })
+
+
+  setTimeout(() => {
+    clearInterval(updateInterval)
+  }, (1000 * 60) * 5 ) // Clear interval after 5 minutes
   
 
   
@@ -76,3 +86,24 @@ main.prepare()
   console.error(ex.stack)
   process.exit(1)
 })
+
+
+function writeScoreToFile(score) {
+  var fs = require('fs')
+  let fileName = './static/users.json'
+  let fileData = fs.readFileSync(fileName, 'utf8')
+  let json = JSON.parse(fileData)
+  let serverTime = new Date()
+  let dateString = `${serverTime.getFullYear()}-${serverTime.getMonth() + 1 }-${serverTime.getDate()}`
+  let scoreData = { "date": dateString, "seconds": score.time }
+
+  json[score.name].scores.push(scoreData)
+
+  fs.writeFile(fileName, JSON.stringify(json), (error) => {
+    if(error) {
+      return console.log(error);
+    }else {
+      return console.log('succesfully updated database')
+    }
+  })
+}

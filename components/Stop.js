@@ -10,13 +10,10 @@ class Stop extends React.Component {
         const io = require('socket.io-client')  
         const HOST = ''
         this.socket = io(HOST)  
-        this.socket.emit('CLIENT:SEND_SCORE_TO_SERVER', {
-            'name': player,
-            'time': timer
+        this.socket.emit('CLIENT:SEND_STOP_SIGNAL', {
+            'name': player
         })
-
         this.button.style.display = "none"
-
 	}
 
     render() {
