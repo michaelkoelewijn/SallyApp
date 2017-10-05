@@ -57,8 +57,8 @@ class ConnectedPeople extends React.Component {
 
                 <form onSubmit={ this.addPlayer.bind(this) } id="join-session-form" className="join-session">
 
-                    <select required ref={(input) => { this.nameInput = input }}>
-                        <option value="" selected="selected" disabled>-- Select your name --</option>
+                    <select defaultValue="" required ref={(input) => { this.nameInput = input }}>
+                        <option value="" disabled>-- Select your name --</option>
                         { 
                             players.map((player, index) => {
                                 return <option key={player.name} value={player.name}>{player.name}</option>
