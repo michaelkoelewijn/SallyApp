@@ -11,9 +11,8 @@ class Timer extends React.Component {
     }
 
     componentDidMount() {
-        const io = require('socket.io-client')
-        const HOST = ''
-        this.socket = io(HOST)  
+        var client = require('./Client.js')
+        this.socket = client.socket
         if(this.props.isGameMaster) {
             this.musicPlayer = document.getElementById('music-player')
             this.musicPlayer.onplaying = () => {

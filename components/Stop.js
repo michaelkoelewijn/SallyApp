@@ -7,9 +7,8 @@ class Stop extends React.Component {
         clearInterval(window._timer)
         const { player, timer } = this.props
 
-        const io = require('socket.io-client')  
-        const HOST = ''
-        this.socket = io(HOST)  
+        var client = require('./Client.js')
+        this.socket = client.socket
         this.socket.emit('CLIENT:SEND_STOP_SIGNAL', {
             'name': player
         })

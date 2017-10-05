@@ -8,9 +8,9 @@ import players from '../static/players'
 class ConnectedPeople extends React.Component {
 
     componentDidMount() {
-        const io = require('socket.io-client')  
-        const HOST = ''
-        this.socket = io(HOST)  
+        var client = require('./Client.js')
+        this.socket = client.socket
+        
         this.socket.on('SERVER:EMIT_PLAYERS', (data) => {
             setPlayers(this.props.dispatch, data)
         });

@@ -10,10 +10,9 @@ class Scoreboard extends React.Component {
     }
 
     componentDidMount() {
-        const io = require('socket.io-client')
-        const HOST = ''
+        var client = require('./Client.js')
+        this.socket = client.socket
         this.scoreboard = {}
-        this.socket = io(HOST)  
         this.socket.on('SERVER:EMIT_ALL_SCORES', (data) => {
             Object.keys(data).map((obj, index) => {
                 this.scoreboard[data[obj].name] = data[obj].time
