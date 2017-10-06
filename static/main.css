@@ -22,7 +22,8 @@ audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
 .container {
     max-width: 32em;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 14px;
+
 }
 
 .timer {
