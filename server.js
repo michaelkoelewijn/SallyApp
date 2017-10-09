@@ -73,7 +73,7 @@ main.prepare()
       let currTime = new Date()
       let timeInSeconds = Math.ceil((currTime.getTime() - serverTime.getTime()) / 1000) - 5
       let scoreData = { 'name': data.name, 'time': timeInSeconds }
-      let dateString = `${currTime.getFullYear()}-${currTime.getMonth() + 1 }-${currTime.getDate()}`
+      let dateString = `${currTime.getFullYear()}-${currTime.getMonth() + 1 }-${day_of_the_month(currTime.getDate())}`
 
       allScores[client.id] = scoreData
       
@@ -117,4 +117,9 @@ function initializeFirebase() {
 
   // Get a reference to the database service
   return firebaseObj.database()
+}
+
+function day_of_the_month(d)
+{ 
+  return (d.getDate() < 10 ? '0' : '') + d.getDate();
 }
