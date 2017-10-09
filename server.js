@@ -22,13 +22,17 @@ main.prepare()
     console.log('> Ready on http://localhost:3000')
   })
 
-  const io = require('socket.io')(server);  
-  var connectedUsers = {};
-  var allScores = {};
-  var serverTime = '';
+  const io = require('socket.io')(server); 
+  var connectedUsers = {}
+  var allScores = {}
+  var updateInterval = null
+  var serverTime = ''
+  var masterSocket = ''
 
   io.on('connection', (client) => { 
     
+    console.log(client.id + ' connected')
+
     //ADDS PLAYER TO LIST
     client.on('CLIENT:ADD_PLAYER', (data) => {
       let numberOfConnectedSockets = parseInt(Object.keys(connectedUsers).length);
@@ -36,17 +40,22 @@ main.prepare()
         name: data.name
       }
       if(numberOfConnectedSockets === 0) {
+        masterSocket = client.id
         playerData.gameMaster = true
         io.to(client.id).emit('SERVER:SET_GAMEMASTER', true)
+
+        //Send updated list of connected players once every x seconds
+        updateInterval = setInterval(() => {
+          io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
+          io.emit('SERVER:EMIT_ALL_SCORES', allScores)
+          console.log('interval started')
+        }, 5000)
+
       }
       connectedUsers[client.id] = playerData
     })
 
-    //Send updated list of connected players once every x seconds
-    var updateInterval = setInterval(() => {
-      io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
-      io.emit('SERVER:EMIT_ALL_SCORES', allScores)
-    }, 3000)
+
 
 
     client.on('CLIENT:EMIT_READY', () => {
@@ -71,15 +80,12 @@ main.prepare()
     client.on('disconnect', () => {
       delete connectedUsers[client.id]
       delete allScores[client.id]
+      if(masterSocket == client.id) {
+        clearInterval(updateInterval)
+        console.log('clear interval')
+      }
     });
   })
-
-
-  setTimeout(() => {
-    clearInterval(updateInterval)
-  }, (1000 * 60) * 5 ) // Clear interval after 5 minutes
-  
-
   
 })
 .catch((ex) => {
