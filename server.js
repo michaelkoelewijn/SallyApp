@@ -121,5 +121,5 @@ function initializeFirebase() {
 
 function day_of_the_month(d)
 { 
-  return (d.getDate() < 10 ? '0' : '') + d.getDate();
+  return (parseInt(d) < 10 ? '0' : '') + parseInt(d);
 }
