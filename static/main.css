@@ -125,6 +125,8 @@ audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
 
 table { width: 100%; }
 
+.view-stats { font-size: 16px; }
+
 .statistics tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }

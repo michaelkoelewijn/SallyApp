@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from 'react-redux'
 import Router from 'next/router'
 import { setPlayer, setPlayers, setGameMaster } from '../actions/sally'
-
+import Link from 'next/link'
 import players from '../static/players'
 
 class ConnectedPeople extends React.Component {
@@ -68,9 +68,10 @@ class ConnectedPeople extends React.Component {
 
                     <button type="button" type="submit">Join session</button>
                 </form>
-
+                       
                 <h2>
-                     { parseInt(people.length) } player(s) in lobby
+                     { parseInt(people.length) } player(s) in lobby 
+                     <Link href="/statistics"><a className="view-stats"> (View Stats)</a></Link>
                 </h2>
                 <ul >
                     {
@@ -80,6 +81,8 @@ class ConnectedPeople extends React.Component {
                         })
                     }
                 </ul>
+
+                
 
                 { startButton }
 
