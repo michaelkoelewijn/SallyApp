@@ -23,7 +23,10 @@ audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
     max-width: 32em;
     margin: 0 auto;
     padding: 0 14px;
+}
 
+.container-wide {
+    max-width: 48em;
 }
 
 .timer {
@@ -51,23 +54,6 @@ audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
 
 .button--start-audio { margin-bottom: 10px; }
 
-.statistics { text-align: center; margin: 0 0 1vh; }
-
-.statistics img {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 2em 0 0;
-}
-
-.statistics span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.statistics span + span:before {
-    content: '/';
-    margin: 0 1em;
-}
 
 .join-session {
     white-space: nowrap;
@@ -136,3 +122,25 @@ audio { position: absolute; opacity:0; pointer-events: none; z-index: -1; }
 }
 
 .scoreboard th { text-align: left; font-weight: bold; }
+
+table { width: 100%; }
+
+.statistics tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.statistics th { text-align: left; }
+
+.statistics td, .statistics th {
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.statistics span {
+    display: inline-block;
+}
+
+.statistics span + span:before {
+    content: ':';
+    display: inline-block;
+}

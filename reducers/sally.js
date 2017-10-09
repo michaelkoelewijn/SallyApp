@@ -2,7 +2,8 @@ const initialState = {
 	timer: 0,
 	people: [],
 	player: '',
-	isGameMaster: false
+	isGameMaster: false,
+	statistics: []
 }
 
 export default function(state = initialState, action) {
@@ -37,6 +38,12 @@ export default function(state = initialState, action) {
 				...state,
 				timer: action.payload
 			}
+
+		case 'ADD_STATS':
+			return {
+				...state,
+				statistics: action.payload
+			}	
 
 		default:
 			return state
