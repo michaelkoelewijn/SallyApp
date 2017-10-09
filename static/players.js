@@ -1,5 +1,8 @@
 export default [
     {
+        "name": "Adrian"
+    },
+    {
         "name": "Bart"
     },
     {
