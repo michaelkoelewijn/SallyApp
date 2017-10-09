@@ -29,6 +29,8 @@ main.prepare()
   var serverTime = ''
   var masterSocket = ''
 
+  var database = initializeFirebase()
+  
   io.on('connection', (client) => { 
     
     console.log(client.id + ' connected')
@@ -49,7 +51,7 @@ main.prepare()
           io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
           io.emit('SERVER:EMIT_ALL_SCORES', allScores)
           console.log('interval started')
-        }, 5000)
+        }, 2500)
 
       }
       connectedUsers[client.id] = playerData
@@ -71,9 +73,17 @@ main.prepare()
       let currTime = new Date()
       let timeInSeconds = Math.ceil((currTime.getTime() - serverTime.getTime()) / 1000) - 5
       let scoreData = { 'name': data.name, 'time': timeInSeconds }
+      let dateString = `${currTime.getFullYear()}-${currTime.getMonth() + 1 }-${currTime.getDate()}`
       allScores[client.id] = scoreData
       
-      writeScoreToFile(scoreData)
+      //Save to Google Firebase
+      var userRef = database.ref('users').child(data.name);
+      userRef.push({
+        date: dateString,
+        seconds: timeInSeconds
+      })
+
+
     })
 
     //REMOVE PLAYER FROM SOCKET AND CLEAR ALL DATA
@@ -93,23 +103,17 @@ main.prepare()
   process.exit(1)
 })
 
+function initializeFirebase() {
+  var firebase = require('firebase');  
+  var firebaseObj = firebase.initializeApp({
+    apiKey: "AIzaSyBIWJftH7QW3WBnsD4jomI3DuGjpiRcPTw",
+    authDomain: "sallyapp-895a4.firebaseapp.com",
+    databaseURL: "https://sallyapp-895a4.firebaseio.com",
+    projectId: "sallyapp-895a4",
+    storageBucket: "",
+    messagingSenderId: "285316895615"
+  });
 
-function writeScoreToFile(score) {
-  var fs = require('fs')
-  let fileName = './static/users.json'
-  let fileData = fs.readFileSync(fileName, 'utf8')
-  let json = JSON.parse(fileData)
-  let serverTime = new Date()
-  let dateString = `${serverTime.getFullYear()}-${serverTime.getMonth() + 1 }-${serverTime.getDate()}`
-  let scoreData = { "date": dateString, "seconds": score.time }
-
-  json[score.name].scores.push(scoreData)
-
-  fs.writeFile(fileName, JSON.stringify(json), (error) => {
-    if(error) {
-      return console.log(error);
-    }else {
-      return console.log('succesfully updated database')
-    }
-  })
+  // Get a reference to the database service
+  return firebaseObj.database()
 }

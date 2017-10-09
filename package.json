@@ -12,6 +12,7 @@
     "axios": "^0.16.2",
     "buzz": "^1.2.0",
     "express": "^4.15.4",
+    "firebase": "^4.5.0",
     "next": "latest",
     "next-redux-wrapper": "^1.0.0",
     "react": "^15.4.2",
