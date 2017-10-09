@@ -1,4 +1,3 @@
 /node_modules/
 .next/
-/static/users.json
-/static/users.json/
+static/users.json
