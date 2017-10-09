@@ -73,7 +73,8 @@ main.prepare()
       let currTime = new Date()
       let timeInSeconds = Math.ceil((currTime.getTime() - serverTime.getTime()) / 1000) - 5
       let scoreData = { 'name': data.name, 'time': timeInSeconds }
-      let dateString = `${currTime.getDate()}-${currTime.getMonth() + 1 }-${currTime.getFullYear()}`
+      let dateString = `${currTime.getFullYear()}-${currTime.getMonth() + 1 }-${currTime.getDate()}`
+
       allScores[client.id] = scoreData
       
       //Save to Google Firebase
