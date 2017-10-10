@@ -67,8 +67,10 @@ class Stats extends React.Component {
 
 
         var parsedTableArray = {}
+        var highestScoreByDate = {}
         uniqueDates.map((date, key) => {
             parsedTableArray[date] = []
+            highestScoreByDate[date] = 0
             Object.keys(stats).map((name, key) => {
                 let scores = stats[name]
 
@@ -78,12 +80,13 @@ class Stats extends React.Component {
                     }
                 }).map((data) => {
                     parsedTableArray[date][name] = data.seconds
+                    if(data.seconds > highestScoreByDate[date]) {
+                        highestScoreByDate[date] = data.seconds
+                    }
                 })
 
             })
         })
-       
-        
 
         return (
             <div>
@@ -105,17 +108,18 @@ class Stats extends React.Component {
                                     <tr key={key}>
                                         <td>{date}</td>
                                         {
+
                                             Object.keys(stats).map((name, key) => {
-                                                let seconds = parsedTableArray[date][name]
-                                                
+                                                let seconds = parsedTableArray[date][name]                                               
                                                 if(typeof seconds == 'undefined' || parseInt(seconds) === 0 || seconds == '') {
                                                     return (
                                                         <td key={key}>--</td>
                                                     )
                                                 }else {
-                                                    let score = this.getFormatted(seconds)
+                                                    let score = this.getFormatted(seconds)  
+                                                    console.log(highestScoreByDate[date])                                                  
                                                     return (
-                                                        <td key={key}>
+                                                        <td key={key} className={ highestScoreByDate[date] == seconds ? 'daily-winner' : '' }>
                                                             <span>{score[1]}</span>
                                                             <span>{score[2]}</span>
                                                         </td>
