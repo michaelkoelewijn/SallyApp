@@ -58,13 +58,9 @@ class Stats extends React.Component {
             })
         })
 
-        
-
         uniqueDates.sort((a, b) => {
             return new Date(b).getTime() - new Date(a).getTime()
         })
-
-
 
         var parsedTableArray = {}
         var highestScoreByDate = {}
