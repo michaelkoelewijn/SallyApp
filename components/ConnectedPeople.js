@@ -7,6 +7,13 @@ import players from '../static/players'
 
 class ConnectedPeople extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            playerFromStorage: ''
+        }
+    }
+  
     componentDidMount() {
         var client = require('./Client.js')
         this.socket = client.socket
@@ -24,6 +31,14 @@ class ConnectedPeople extends React.Component {
                 pathname: '/progress'
             })
         })
+
+        let name = localStorage.player;
+        if(typeof name != 'undefined') {
+            this.setState({
+                playerFromStorage: name
+            })
+        }
+
     }
 
     addPlayer(e) {
@@ -37,11 +52,20 @@ class ConnectedPeople extends React.Component {
 
             setPlayer(this.props.dispatch, playerName)
 
+            //Save to localStorage
+            localStorage.setItem('player', playerName)
+
         }
     }
 
     emitTimerStart() {
         this.socket.emit('CLIENT:EMIT_READY')
+    }
+
+    handleChange() {
+        this.setState({
+            playerFromStorage: this.nameInput.value
+        })
     }
 
     render() {
@@ -51,13 +75,14 @@ class ConnectedPeople extends React.Component {
         if(isGameMaster) {
             startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Everyone is ready. Let's go!</button>
         }
+    
 
         return (
             <div className="connected-people">
 
                 <form onSubmit={ this.addPlayer.bind(this) } id="join-session-form" className="join-session">
 
-                    <select defaultValue="" required ref={(input) => { this.nameInput = input }}>
+                    <select onChange={this.handleChange.bind(this)} value={this.state.playerFromStorage} required ref={(input) => { this.nameInput = input }}>
                         <option value="" disabled>-- Select your name --</option>
                         { 
                             players.map((player, index) => {
