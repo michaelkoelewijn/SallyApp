@@ -48,15 +48,27 @@ class Stats extends React.Component {
         const { statistics} = this.props
         let stats = this.getFormattedStatisticsArray(statistics)      
         
+
+        var scoresByPerson = {}
+
         //Build unique dates
         var uniqueDates = []
         Object.keys(stats).map((name, key) => {
+
+            scoresByPerson[name] = []
+
             stats[name].map((data) => {
                 if(uniqueDates.indexOf(data.date) == -1) {
                     uniqueDates.push(data.date)
                 }
+
+                scoresByPerson[name].push(data.seconds)
+
             })
+
+
         })
+
 
         uniqueDates.sort((a, b) => {
             return new Date(b).getTime() - new Date(a).getTime()
@@ -83,7 +95,7 @@ class Stats extends React.Component {
 
             })
         })
-
+  
         return (
             <div>
                 <table className="statistics">
@@ -96,6 +108,17 @@ class Stats extends React.Component {
                                 })
                             }  
                         </tr>
+
+                        <tr>
+                            <td>Record</td>
+                            {
+                                Object.keys(scoresByPerson).map((name, key) => {
+                                    let seconds = this.getFormatted(Math.max(...scoresByPerson[name])) 
+                                    return <td key={key}><span className="personal-record">{`${seconds[1]}:${seconds[2]}`}</span></td>
+                                })
+                            }
+                        </tr>
+
                     </thead>
                     <tbody>
                         {
@@ -112,8 +135,7 @@ class Stats extends React.Component {
                                                         <td key={key}>--</td>
                                                     )
                                                 }else {
-                                                    let score = this.getFormatted(seconds)  
-                                                    console.log(highestScoreByDate[date])                                                  
+                                                    let score = this.getFormatted(seconds)                                                   
                                                     return (
                                                         <td key={key} className={ highestScoreByDate[date] == seconds ? 'daily-winner' : '' }>
                                                             <span>{score[1]}</span>
