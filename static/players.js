@@ -21,6 +21,9 @@ export default [
         "name": "John"
     },
     {
+        "name": "Martina"
+    },
+    {
         "name": "Michael"
     },
     {
