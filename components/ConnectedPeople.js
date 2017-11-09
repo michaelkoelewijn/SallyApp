@@ -13,11 +13,11 @@ class ConnectedPeople extends React.Component {
             playerFromStorage: ''
         }
     }
-  
+
     componentDidMount() {
         var client = require('./Client.js')
         this.socket = client.socket
-        
+
         this.socket.on('SERVER:EMIT_PLAYERS', (data) => {
             setPlayers(this.props.dispatch, data)
         });
@@ -45,7 +45,7 @@ class ConnectedPeople extends React.Component {
         e.preventDefault()
         let playerName = this.nameInput.value;
         if(playerName !== '') {
-            document.getElementById('join-session-form').style.display = 'none'   
+            document.getElementById('join-session-form').style.display = 'none'
             this.socket.emit('CLIENT:ADD_PLAYER', {
                 'name': playerName
             })
@@ -73,32 +73,32 @@ class ConnectedPeople extends React.Component {
 
         let startButton = ''
         if(isGameMaster) {
-            startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Everyone is ready. Let's go!</button>
+            startButton = <button onClick={this.emitTimerStart.bind(this)} className="button">Let's go!</button>
         }
-    
+
 
         return (
             <div className="connected-people">
-
+                <h2>
+                     { parseInt(people.length) } player(s) in lobby
+                </h2>
                 <form onSubmit={ this.addPlayer.bind(this) } id="join-session-form" className="join-session">
 
                     <select onChange={this.handleChange.bind(this)} value={this.state.playerFromStorage} required ref={(input) => { this.nameInput = input }}>
                         <option value="" disabled>-- Select your name --</option>
-                        { 
+                        {
                             players.map((player, index) => {
                                 return <option key={player.name} value={player.name}>{player.name}</option>
-                            }) 
+                            })
                         }
                     </select>
 
                     <button type="button" type="submit">Join session</button>
                 </form>
-                       
-                <h2>
-                     { parseInt(people.length) } player(s) in lobby 
-                     <Link href="/statistics"><a className="view-stats"> (View Stats)</a></Link>
-                </h2>
-                <ul >
+
+                { startButton }
+
+                <ul>
                     {
                         people.map((player, key) => {
                             let gameMaster = player.gameMaster ? <i>( Room master )</i> : ''
@@ -107,9 +107,9 @@ class ConnectedPeople extends React.Component {
                     }
                 </ul>
 
-                
 
-                { startButton }
+
+                <Link href="/statistics"><a className="view-stats">View Stats</a></Link>
 
             </div>
         )

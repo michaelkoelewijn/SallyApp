@@ -78,11 +78,11 @@ main.prepare()
       allScores[client.id] = scoreData
       
       //Save to Google Firebase
-      var userRef = database.ref('users').child(data.name);
-      userRef.push({
-        date: dateString,
-        seconds: timeInSeconds
-      })
+      // var userRef = database.ref('users').child(data.name);
+      // userRef.push({
+      //   date: dateString,
+      //   seconds: timeInSeconds
+      // })
 
 
     })
