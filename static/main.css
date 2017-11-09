@@ -16,7 +16,7 @@ audio { position: absolute; opacity: 0; pointer-events: none; z-index: -1; }
 
 :focus { outline: none; }
 
-.logo span { display: block; }
+.logo span, .logo a { display: block; text-decoration: none; color: var(--primary-color); }
 .logo__title { font-size: 2em; text-transform: uppercase; line-height: 1; margin: 0 0 0.075em; }
 .logo__slogan { font-size: 0.75em; opacity: 0.3; }
 

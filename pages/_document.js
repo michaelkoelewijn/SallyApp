@@ -1,5 +1,6 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
+import Link from 'next/link'
 
 export default class MyDocument extends Document {
 
@@ -19,10 +20,16 @@ export default class MyDocument extends Document {
 
 				<body>
 
+                    
                     <div className="logo">
-                        <span className="logo__title">Sally App</span>
+                       
+                        <span className="logo__title">
+                            <Link href="/">Sally App</Link>
+                        </span>
                         <span className="logo__slogan">Just an activity</span>
+                        
                     </div>
+                    
 
 					<Main />
 					<NextScript />
