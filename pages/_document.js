@@ -18,25 +18,16 @@ export default class MyDocument extends Document {
                     <link href='static/main.css' rel='stylesheet' type='text/css' />
                 </head>
 
-				<body>
-
-                    
+				<body id="sallyApp">
                     <div className="logo">
-                       
                         <span className="logo__title">
-                            <Link href="/">Sally App</Link>
-                        </span>
-                        <span className="logo__slogan">Just an activity</span>
-                        
+                            <Link href="/"><img src="static/images/sally-logo.svg"/></Link>
+                        </span> 
                     </div>
-                    
-
-					<Main />
+					<Main className="main" />
 					<NextScript />
-
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-				</body>
+                </body>
 			</html>
 		);
 	}

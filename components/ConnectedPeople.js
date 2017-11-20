@@ -43,6 +43,9 @@ class ConnectedPeople extends React.Component {
 
     addPlayer(e) {
         e.preventDefault()
+
+        document.getElementById('sallyApp').classList.add('sally-ready')
+
         let playerName = this.nameInput.value;
         if(playerName !== '') {
             document.getElementById('join-session-form').style.display = 'none'
@@ -59,6 +62,7 @@ class ConnectedPeople extends React.Component {
     }
 
     emitTimerStart() {
+        document.getElementById('sallyApp').classList.add('sally-go')
         this.socket.emit('CLIENT:EMIT_READY')
     }
 

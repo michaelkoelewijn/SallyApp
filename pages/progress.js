@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux'
 import initStore from '../store'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head';
-
-
+import Link from 'next/link'
 
 import Timer from '../components/Timer'
 import Stop from '../components/Stop'
@@ -25,10 +24,11 @@ class Progress extends React.Component {
 	
 	render () {		
 		return (
-			<div className="container">
+			<div className="container progress">
 				<Timer />
 				<Stop />
 				<Scoreboard />
+				<Link href="/statistics"><a className="view-stats">View Stats</a></Link>
 			</div>
 		)
 	}

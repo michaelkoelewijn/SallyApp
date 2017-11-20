@@ -24,7 +24,7 @@ class Scoreboard extends React.Component {
     render() {
         if(typeof this.scoreboard == 'object') {
             return (
-                <div>
+                <div className="scoreboard-wrapper">
                     <table className="scoreboard">
                         <thead>
                             <tr>

@@ -35,6 +35,7 @@ class Timer extends React.Component {
     startAudio() {
         this.musicPlayer.play()
         this.button.style.display = "none"
+        document.getElementById('sallyApp').classList.add('sally-starting')
     }
 
 
@@ -47,7 +48,7 @@ class Timer extends React.Component {
         }
 
         return (
-            <div>
+            <div className="timer-wrapper">
                 <div className="timer">
                     <span className="js-hours">{timerObj[0]}</span>
                     <span className="js-minutes">{timerObj[1]}</span>

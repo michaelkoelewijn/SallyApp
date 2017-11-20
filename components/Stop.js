@@ -7,6 +7,8 @@ class Stop extends React.Component {
         clearInterval(window._timer)
         const { player, timer } = this.props
 
+        document.getElementById('sallyApp').classList.add('sally-stop')
+
         var client = require('./Client.js')
         this.socket = client.socket
         this.socket.emit('CLIENT:SEND_STOP_SIGNAL', {
@@ -16,9 +18,9 @@ class Stop extends React.Component {
 	}
 
     render() {
-        return (
-            <button onClick={this.stopTimer.bind(this)} ref={(button) =>  {this.button = button }} className="button">Stop, i'm weak</button>
-        )
+        let { timer } = this.props;
+        let button  = timer <= 0 ? <div></div> : <button onClick={this.stopTimer.bind(this)} ref={(button) =>  {this.button = button }} className="button button--stop">Stop, i'm weak</button>;
+        return button;
     }
 }
 
