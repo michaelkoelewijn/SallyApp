@@ -8,12 +8,10 @@ body {
     font-family: 'Encode Sans Condensed', sans-serif;
     padding: 0.5em;
     background-color: #fff;
-    background: linear-gradient(to bottom, #ffffff 0%, #ffffff 50%, #ededed 100%);
     background-repeat: no-repeat;
     color: var(--primary-color);
     position: relative;
     min-height: 100vh;
-    overflow: hidden;
 }
 input, select, button {
     font-size: 1em;
@@ -97,6 +95,7 @@ audio {
     left: 0;
     right: 0;
     padding: 1em;
+    background: linear-gradient(to bottom, transparent 0%, #ffffff 15%, #ffffff 100%);
 }
 .join-session select {
     background-color: transparent;
@@ -135,7 +134,7 @@ audio {
     text-align: left;
     padding: 1em 0;
     counter-reset: numPeople;
-    margin-top: 26vh;
+    margin-top: 4em;
 }
 .connected-people li {
     padding: 1em 0;
@@ -243,8 +242,9 @@ table {
 }
 .sally-stop .scoreboard-wrapper {
     display: block;
-    height: 50vh;
+    height: 80vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 } 
 .sally-stop .scoreboard-wrapper tr {
     height: 2.5em;
@@ -255,9 +255,9 @@ table {
     bottom: 0;
     top: auto;
 }
-.sally-stop .logo {
-    top: 0;
-}
 .sally-stop .button--stop {
    display: none;
+}
+.sally-stop .timer-wrapper {
+    height: 20vh;
 }
