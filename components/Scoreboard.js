@@ -53,7 +53,10 @@ class Scoreboard extends React.Component {
                 </div>
             )            
         }else {
-            return <div className="scoreboard">Loading scoreboard...</div>
+            let style = {
+                textAlign: 'center'
+            }
+            return <div className="scoreboard" style={style}>Loading scoreboard...</div>
         }
         
 

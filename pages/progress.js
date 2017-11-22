@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Timer from '../components/Timer'
 import Stop from '../components/Stop'
 import Scoreboard from '../components/Scoreboard'
+import Confetti from '../components/Confetti';
  
 class Progress extends React.Component {
 
@@ -28,6 +29,7 @@ class Progress extends React.Component {
 				<Timer />
 				<Stop />
 				<Scoreboard />
+				<Confetti />
 				<Link href="/statistics"><a className="view-stats">View Stats</a></Link>
 			</div>
 		)
