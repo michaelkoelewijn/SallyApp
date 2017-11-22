@@ -41,15 +41,26 @@ class Timer extends React.Component {
 
     render() {
         let timerObj = this.getFormatted()
+        let { timer } = this.props
 
         let button = ''
         if(this.props.isGameMaster) {
             button = <button ref={(button) => { this.button = button }} onClick={this.startAudio.bind(this)} className="button button--start-audio">Start audio</button>
         }
 
+        let style = {
+            color: '#000'
+        }
+
+        if(timer <= 0) {
+            style = {
+                color: '#ff0000'
+            }
+        }
+
         return (
             <div className="timer-wrapper">
-                <div className="timer">
+                <div style={style} className="timer">
                     <span className="js-hours">{timerObj[0]}</span>
                     <span className="js-minutes">{timerObj[1]}</span>
                     <span className="js-seconds">{timerObj[2]}</span>
