@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from 'react-redux'
 import Router from 'next/router'
-import { setPlayer, setPlayers, setGameMaster } from '../actions/sally'
+import { setPlayer, setPlayers, setGameMaster, setPlayerRecord } from '../actions/sally'
 import Link from 'next/link'
 import players from '../static/players'
+import * as firebase from 'firebase';
 
 class ConnectedPeople extends React.Component {
 
@@ -39,6 +40,27 @@ class ConnectedPeople extends React.Component {
             })
         }
 
+        if(!firebase.apps.length) {
+            let database = firebase.initializeApp({
+                apiKey: "AIzaSyBIWJftH7QW3WBnsD4jomI3DuGjpiRcPTw",
+                authDomain: "sallyapp-895a4.firebaseapp.com",
+                databaseURL: "https://sallyapp-895a4.firebaseio.com",
+                projectId: "sallyapp-895a4",
+                storageBucket: "",
+                messagingSenderId: "285316895615"
+            });
+            
+            var databaseDataAsArray = {}
+            var usersRef = database.database().ref('users');
+            usersRef.on('value', (snapshot) => {
+                    this.props.dispatch({
+                        'type': 'ADD_STATS',
+                        'payload': snapshot
+                    })
+            });
+        }
+        
+
     }
 
     addPlayer(e) {
@@ -58,7 +80,38 @@ class ConnectedPeople extends React.Component {
             //Save to localStorage
             localStorage.setItem('player', playerName)
 
+
+            
+
+            let { statistics } = this.props;
+            let stats = this.getFormattedStatisticsArray(statistics) 
+            var scoresByPerson = []
+            if(stats[playerName]) {
+                stats[playerName].map((data) => {
+                    scoresByPerson.push(data.seconds)
+                })
+            }
+
+            let record = isFinite(Math.max(...scoresByPerson)) ? Math.max(...scoresByPerson) : 0
+
+            setPlayerRecord(this.props.dispatch, record);
+
+
         }
+    }
+
+    getFormattedStatisticsArray(statistics) {
+        let parsedArray = {}
+        statistics.forEach((child, key) => {
+            var childData = child.val()
+            var name = child.key
+            parsedArray[name] = []
+            for(var record_id in childData) {
+                let child = childData[record_id]
+                parsedArray[name].push(child)
+            }
+        })
+        return parsedArray
     }
 
     emitTimerStart() {
@@ -74,6 +127,7 @@ class ConnectedPeople extends React.Component {
 
     render() {
         const { people, isGameMaster } = this.props
+
 
         let startButton = ''
         if(isGameMaster) {
@@ -122,5 +176,6 @@ class ConnectedPeople extends React.Component {
 
 export default connect(state => ({
     people: state.sally.people,
-    isGameMaster: state.sally.isGameMaster
+    isGameMaster: state.sally.isGameMaster,
+    statistics: state.sally.statistics,
 }))(ConnectedPeople)

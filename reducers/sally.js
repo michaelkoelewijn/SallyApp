@@ -3,7 +3,8 @@ const initialState = {
 	people: [],
 	player: '',
 	isGameMaster: false,
-	statistics: []
+	statistics: [],
+	playerRecord: 0
 }
 
 export default function(state = initialState, action) {
@@ -43,6 +44,12 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				statistics: action.payload
+			}	
+
+		case 'SET_RECORD':
+			return {
+				...state,
+				playerRecord: action.payload
 			}	
 
 		default:

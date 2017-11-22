@@ -70,6 +70,15 @@ audio {
     text-align: center;
     font-size: 22vw;
 }
+
+.timer.time-untill-record {
+    font-size: 16vw;
+}
+
+.timer.timer.time-untill-record span:nth-child(2):before {
+    content: '';
+}
+
 .timer span+span:before {
     content: ':';
     display: inline-block;

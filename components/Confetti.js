@@ -1,6 +1,5 @@
 import React from "react"
 import { connect } from 'react-redux'
-import * as firebase from 'firebase';
 
 var ctx, canvas;
 
@@ -15,47 +14,16 @@ class Confetti extends React.Component {
         canvas = this.canvas;
         ctx = canvas.getContext('2d');
         window.addEventListener('resize', this.resize.bind(this));
-        // window.addEventListener('click', this.initConfetti.bind(this))
+        window.addEventListener('click', this.initConfetti.bind(this))
         this.resize();
         this.draw();
-
-
-        let database = firebase.initializeApp({
-            apiKey: "AIzaSyBIWJftH7QW3WBnsD4jomI3DuGjpiRcPTw",
-            authDomain: "sallyapp-895a4.firebaseapp.com",
-            databaseURL: "https://sallyapp-895a4.firebaseio.com",
-            projectId: "sallyapp-895a4",
-            storageBucket: "",
-            messagingSenderId: "285316895615"
-        });
-        
-        var databaseDataAsArray = {}
-        var usersRef = database.database().ref('users');
-        usersRef.on('value', (snapshot) => {
-                this.props.dispatch({
-                    'type': 'ADD_STATS',
-                    'payload': snapshot
-                })
-        })
     }
 
-    getFormattedStatisticsArray(statistics) {
-        let parsedArray = {}
-        statistics.forEach((child, key) => {
-            var childData = child.val()
-            var name = child.key
-            parsedArray[name] = []
-            for(var record_id in childData) {
-                let child = childData[record_id]
-                parsedArray[name].push(child)
-            }
-        })
-        return parsedArray
-    }
+
 
     initConfetti() {
         let size = 0.6;
-        let delay = 100;
+        let delay = 200;
         let offsetX = (canvas.width - canvas.width * size) / 2;
         let offsetY = (canvas.height - canvas.height * size) / 2;
 
@@ -118,19 +86,9 @@ class Confetti extends React.Component {
     }
 
     render() {
-        let { statistics, player, timer } = this.props;
-        let stats = this.getFormattedStatisticsArray(statistics) 
+        let { statistics, player, timer, playerRecord } = this.props;
 
-        var scoresByPerson = []
-        if(stats[player]) {
-            stats[player].map((data) => {
-                scoresByPerson.push(data.seconds)
-            })
-        }
-
-
-
-        if(timer == (Math.max(...scoresByPerson)) + 1) {
+        if(timer == playerRecord + 1) {
             this.initConfetti();
         }
 
@@ -144,6 +102,7 @@ export default connect(state => ({
     statistics: state.sally.statistics,
     player: state.sally.player,
     timer: state.sally.timer,
+    playerRecord: state.sally.playerRecord
 }))(Confetti)
 
 

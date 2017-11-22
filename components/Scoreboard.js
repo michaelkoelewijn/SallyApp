@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
 
-class Scoreboard extends React.Component {
+export default class Scoreboard extends React.Component {
 
     getFormatted(timer) {
         let date = new Date(null)
@@ -64,7 +64,8 @@ class Scoreboard extends React.Component {
     }
 }
 
-export default connect(state => ({
 
-}))(Scoreboard)
+// export default connect(state => ({
+
+// }))(Scoreboard)
 

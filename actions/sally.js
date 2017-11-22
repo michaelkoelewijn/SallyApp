@@ -7,6 +7,10 @@ export function setPlayer(dispatch, player) {
     dispatch({ 'type':'SET_PLAYER', 'payload': player })
 }
 
+export function setPlayerRecord(dispatch, record) {
+    dispatch({ 'type':'SET_RECORD', 'payload': record });
+}
+
 export function setPlayers(dispatch, players) {
     let connectedPlayers = []
     Object.keys(players).map((socketId, index) => {

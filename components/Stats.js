@@ -1,29 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 
 class Stats extends React.Component {
     
-    componentDidMount() {
-        let database = firebase.initializeApp({
-            apiKey: "AIzaSyBIWJftH7QW3WBnsD4jomI3DuGjpiRcPTw",
-            authDomain: "sallyapp-895a4.firebaseapp.com",
-            databaseURL: "https://sallyapp-895a4.firebaseio.com",
-            projectId: "sallyapp-895a4",
-            storageBucket: "",
-            messagingSenderId: "285316895615"
-        });
-        
-        var databaseDataAsArray = {}
-        var usersRef = database.database().ref('users');
-        usersRef.on('value', (snapshot) => {
-                this.props.dispatch({
-                    'type': 'ADD_STATS',
-                    'payload': snapshot
-                })
-        })
-    }
-
     getFormattedStatisticsArray(statistics) {
         let parsedArray = {}
         statistics.forEach((child, key) => {

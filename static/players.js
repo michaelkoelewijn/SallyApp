@@ -28,5 +28,8 @@ export default [
     },
     {
         "name": "Rutger"
+    },
+    {
+        "name": "Guest"
     }
 ]
