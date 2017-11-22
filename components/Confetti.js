@@ -130,7 +130,7 @@ class Confetti extends React.Component {
 
 
 
-        if(timer == Math.max(...scoresByPerson)) {
+        if(timer == (Math.max(...scoresByPerson)) + 1) {
             this.initConfetti();
         }
 
