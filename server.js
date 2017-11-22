@@ -27,7 +27,7 @@ main.prepare()
   var allScores = {}
   var updateInterval = null
   var serverTime = ''
-  var masterSocket = ''
+
 
   var database = initializeFirebase()
   
@@ -42,10 +42,6 @@ main.prepare()
         name: data.name
       }
       if(numberOfConnectedSockets === 0) {
-        masterSocket = client.id
-        playerData.gameMaster = true
-        io.to(client.id).emit('SERVER:SET_GAMEMASTER', true)
-
         //Send updated list of connected players once every x seconds
         updateInterval = setInterval(() => {
           io.emit('SERVER:EMIT_PLAYERS', connectedUsers )
@@ -91,10 +87,12 @@ main.prepare()
     client.on('disconnect', () => {
       delete connectedUsers[client.id]
       delete allScores[client.id]
-      if(masterSocket == client.id) {
+
+      if(parseInt(io.engine.clientsCount) <= 0) {
         clearInterval(updateInterval)
         console.log('clear interval')
       }
+
     });
   })
   

@@ -62,9 +62,7 @@ audio {
     flex-direction: column;
     justify-content: center;
 }
-.timer-wrapper button {
 
-}
 .timer {
     margin: 0;
     text-align: center;
@@ -102,10 +100,11 @@ audio {
 .join-session {
     white-space: nowrap;
     position: fixed;
-    bottom: 0;
+    bottom: 6em;
     left: 0;
     right: 0;
     padding: 1em;
+    text-align: left;
 }
 .join-session select {
     background-color: transparent;
@@ -114,9 +113,9 @@ audio {
     padding: 1.5em 0em;
     border: none;
     border-bottom: 2px solid var(--primary-color);
-    margin-bottom: 6em;
     -webkit-appearance: none;
     border-radius: 0;
+    margin-bottom: 1em;
 }
 .join-session button {
     display: block;

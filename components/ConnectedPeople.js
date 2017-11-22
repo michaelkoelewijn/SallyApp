@@ -23,9 +23,9 @@ class ConnectedPeople extends React.Component {
             setPlayers(this.props.dispatch, data)
         });
 
-        this.socket.on('SERVER:SET_GAMEMASTER', (data) => {
-            setGameMaster(this.props.dispatch)
-        })
+        // this.socket.on('SERVER:SET_GAMEMASTER', (data) => {
+            
+        // })
 
         this.socket.on('SERVER:EMIT_READY', (data) => {
             Router.push({
@@ -81,7 +81,12 @@ class ConnectedPeople extends React.Component {
             localStorage.setItem('player', playerName)
 
 
-            
+            //Gamemaster
+            if(this.isGamemaster.checked) {
+                setGameMaster(this.props.dispatch)
+            }
+
+            //Record
 
             let { statistics } = this.props;
             let stats = this.getFormattedStatisticsArray(statistics) 
@@ -151,6 +156,9 @@ class ConnectedPeople extends React.Component {
                         }
                     </select>
 
+                    <input ref={(input) => this.isGamemaster = input } id="gamemaster" value="on" type="checkbox" /> 
+                    <label htmlFor="gamemaster">Is gamemaster</label>
+
                     <button type="button" type="submit">Join session</button>
                 </form>
 
@@ -159,8 +167,7 @@ class ConnectedPeople extends React.Component {
                 <ul>
                     {
                         people.map((player, key) => {
-                            let gameMaster = player.gameMaster ? <i>( Room master )</i> : ''
-                            return <li key={key}>{player.name} { gameMaster }</li>
+                            return <li key={key}>{player.name}</li>
                         })
                     }
                 </ul>
