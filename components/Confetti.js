@@ -14,7 +14,7 @@ class Confetti extends React.Component {
         canvas = this.canvas;
         ctx = canvas.getContext('2d');
         window.addEventListener('resize', this.resize.bind(this));
-        window.addEventListener('click', this.initConfetti.bind(this))
+        // window.addEventListener('click', this.initConfetti.bind(this))
         this.resize();
         this.draw();
     }
