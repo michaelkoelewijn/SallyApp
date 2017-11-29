@@ -87,6 +87,7 @@ audio {
     border-radius: 0;
     text-transform: uppercase;
     color: #FFF;
+    font-weight: bold;
     padding: 1.5em 2em;
 }
 .button--stop {
