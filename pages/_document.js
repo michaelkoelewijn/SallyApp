@@ -1,6 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import Link from 'next/link'
 
 export default class MyDocument extends Document {
 
@@ -19,11 +18,6 @@ export default class MyDocument extends Document {
                 </head>
 
 				<body id="sallyApp">
-                    <div className="logo">
-                        <span className="logo__title">
-                            <Link href="/"><img src="static/images/sally-logo.svg"/></Link>
-                        </span> 
-                    </div>
 					<Main className="main" />
 					<NextScript />
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
