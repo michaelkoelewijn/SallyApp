@@ -11,7 +11,8 @@ export default class MyDocument extends Document {
                         <title>Sally App Sally Down</title>
                     </Head>
                     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
-                    <meta name="theme-color" content="#673ab7" />
+                    <meta name="apple-mobile-web-app-capable" content="yes">
+                    <meta name="theme-color" content="#000" />
                     <link rel="manifest" href="" />
                     <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed" rel="stylesheet" />
                     <link href='static/main.css' rel='stylesheet' type='text/css' />
