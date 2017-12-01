@@ -303,7 +303,6 @@ table {
     margin-right: 0.5em;
     width: 0.85em;
     height: 0.85em;
-    border-radius: 50%;
     background-color: #fff;
     border: 2px solid #000;
     vertical-align: -2px;
@@ -311,6 +310,19 @@ table {
 .custom-checkbox input:checked + label:before {
     background-color: #000;
 }
+
+.back-to-homepage {
+    display: table;
+    background-color: #222;
+    color: #FFF;
+    padding: 1em;
+    text-decoration: none;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 14px;
+}
+
 .confetti {
     position: fixed;
     top: 0;
