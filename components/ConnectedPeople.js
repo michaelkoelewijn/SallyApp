@@ -155,9 +155,10 @@ class ConnectedPeople extends React.Component {
                             })
                         }
                     </select>
-
-                    <input ref={(input) => this.isGamemaster = input } id="gamemaster" value="on" type="checkbox" /> 
-                    <label htmlFor="gamemaster">Is gamemaster</label>
+                    <div className="custom-checkbox">
+                        <input ref={(input) => this.isGamemaster = input } id="gamemaster" value="on" type="checkbox" /> 
+                        <label htmlFor="gamemaster">Is gamemaster</label>
+                    </div>
 
                     <button type="button" type="submit">Join session</button>
                 </form>

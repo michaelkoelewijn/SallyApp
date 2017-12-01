@@ -59,7 +59,7 @@ class Timer extends React.Component {
             }
         }
         let styleNegative = { color: '#ff0000' }
-        let stylePositive = { color: '#00ff00' }
+        let stylePositive = { color: '#32CD32' }
         let recordCountdown = timer - playerRecord;
 
         
