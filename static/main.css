@@ -317,9 +317,9 @@ table {
     color: #FFF;
     padding: 1em;
     text-decoration: none;
-    position: absolute;
-    top: -8px;
-    right: -8px;
+    position: fixed;
+    top: 0;
+    right: 0;
     font-size: 14px;
 }
 
